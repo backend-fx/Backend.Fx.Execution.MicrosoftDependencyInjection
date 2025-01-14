@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Authors>Marc Wittke</Authors>
+        <Company>anic GmbH</Company>
+        <Copyright>All rights reserved. Distributed under the terms of the MIT License.</Copyright>
+        <Description>Execution Pipeline for Backend.Fx using Microsoft Dependency Injection</Description>
+        <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+        <PackageLicense>MIT</PackageLicense>
+        <PackageProjectUrl>https://github.com/backend-fx/Backend.Fx.Execution.MicrosoftDependencyInjection</PackageProjectUrl>
+        <Product>Backend.Fx</Product>
+        <RepositoryType>Git</RepositoryType>
+        <RepositoryUrl>https://github.com/backend-fx/Backend.Fx.Execution.MicrosoftDependencyInjection</RepositoryUrl>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Backend.Fx.Execution" Version="1.1.1" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+        <PackageReference Include="Scrutor" Version="6.0.1" />
+    </ItemGroup>
+
+</Project>
