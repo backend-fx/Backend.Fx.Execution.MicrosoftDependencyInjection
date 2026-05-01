@@ -23,7 +23,7 @@
     <ItemGroup>
         <PackageReference Include="Backend.Fx.Execution" Version="1.1.7" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8" />
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.203" PrivateAssets="All" />
         <PackageReference Include="Scrutor" Version="6.1.0" />
     </ItemGroup>
 
