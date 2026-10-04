@@ -6,18 +6,33 @@ on:
       - "v*.*.*"
 
 jobs:
-  nuke-build:
-    name: nuke-build
+  release:
+    name: release
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v5
-        with:
-          submodules: recursive
-          fetch-depth: 0
+        uses: actions/checkout@v7
 
-      - name: nuke build
-        run: ./build.sh publish
+      - name: Install .NET SDK
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+
+      - name: push
+        run: |
+          dotnet build \
+            --configuration Release \
+            -p:Version="${VERSION#v}" \
+          dotnet pack \
+            --configuration Release \
+            --no-build \
+            --output artifacts \
+            -p:Version="${VERSION#v}"
+          dotnet nuget push "artifacts/*.nupkg" \
+            --source https://api.nuget.org/v3/index.json \
+            --api-key "$NUGET_APIKEY" \
+            --skip-duplicate
         env:
-            MYGET_APIKEY: ${{ secrets.MYGET_APIKEY }}
-            NUGET_APIKEY: ${{ secrets.NUGET_APIKEY }}
+          VERSION: ${{ github.ref_name }}
+          NUGET_APIKEY: ${{ secrets.NUGET_APIKEY }}

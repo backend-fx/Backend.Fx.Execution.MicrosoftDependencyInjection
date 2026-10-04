@@ -21,7 +21,6 @@ public abstract class MicrosoftCompositionRootBase : CompositionRoot
 
     protected IServiceCollection ServiceCollection { get; }
 
-
     public override void Register(ServiceDescriptor serviceDescriptor)
     {
         var existingRegistration = ServiceCollection
@@ -87,9 +86,5 @@ public abstract class MicrosoftCompositionRootBase : CompositionRoot
     public override IServiceScope BeginScope()
     {
         return ServiceProvider.CreateScope();
-    }
-
-    protected override void Dispose(bool disposing)
-    {
     }
 }
