@@ -23,7 +23,7 @@ jobs:
         run: |
           dotnet build \
             --configuration Release \
-            -p:Version="${VERSION#v}" \
+            -p:Version="${VERSION#v}"
           dotnet pack \
             --configuration Release \
             --no-build \
