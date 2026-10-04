@@ -23,22 +23,30 @@ public abstract class MicrosoftCompositionRootBase : CompositionRoot
 
     public override void Register(ServiceDescriptor serviceDescriptor)
     {
-        var existingRegistration = ServiceCollection
-            .SingleOrDefault(sd => sd.ServiceType == serviceDescriptor.ServiceType);
+        var existingRegistrations = ServiceCollection
+            .Where(sd => sd.ServiceType == serviceDescriptor.ServiceType)
+            .ToArray();
 
-        if (existingRegistration == null)
+        if (existingRegistrations.Length == 0)
         {
             ServiceCollection.Add(serviceDescriptor);
         }
         else
         {
-            _logger.LogDebug("{Verb} {Lifetime} {RegistrationType} for {ServiceType}: {ImplementationType}",
+            _logger.LogDebug("{Verb} {Count} {Lifetime} {RegistrationType} for {ServiceType}: {ImplementationType}",
                 "Replacing",
+                existingRegistrations.Length,
                 serviceDescriptor.Lifetime.ToString().ToLowerInvariant(),
-                "registration",
+                "registration(s)",
                 serviceDescriptor.ServiceType.GetDetailedTypeName(),
                 serviceDescriptor.GetImplementationTypeDescription());
-            ServiceCollection.Replace(serviceDescriptor);
+
+            foreach (var existingRegistration in existingRegistrations)
+            {
+                ServiceCollection.Remove(existingRegistration);
+            }
+
+            ServiceCollection.Add(serviceDescriptor);
         }
     }
 
