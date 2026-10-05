@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Backend.Fx.Execution.MicrosoftDependencyInjection/Backend.Fx.Execution.MicrosoftDependencyInjection.csproj" />
+  </Folder>
+</Solution>
