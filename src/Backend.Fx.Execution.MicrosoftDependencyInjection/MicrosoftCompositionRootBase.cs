@@ -33,13 +33,15 @@ public abstract class MicrosoftCompositionRootBase : CompositionRoot
         }
         else
         {
-            _logger.LogDebug("{Verb} {Count} {Lifetime} {RegistrationType} for {ServiceType}: {ImplementationType}",
+            _logger.LogDebug(
+                "{Verb} {Count} {Lifetime} {RegistrationType} for {ServiceType}: {ImplementationType}",
                 "Replacing",
                 existingRegistrations.Length,
                 serviceDescriptor.Lifetime.ToString().ToLowerInvariant(),
                 "registration(s)",
                 serviceDescriptor.ServiceType.GetDetailedTypeName(),
-                serviceDescriptor.GetImplementationTypeDescription());
+                serviceDescriptor.GetImplementationTypeDescription()
+            );
 
             foreach (var existingRegistration in existingRegistrations)
             {
@@ -54,8 +56,10 @@ public abstract class MicrosoftCompositionRootBase : CompositionRoot
     {
         if (serviceDescriptor.ServiceType.IsOpenGeneric())
         {
-            throw new NotSupportedException("Microsoft's DI does not support decoration of open generic types. " +
-                                            "See https://github.com/khellang/Scrutor/issues/39 for more info");
+            throw new NotSupportedException(
+                "Microsoft's DI does not support decoration of open generic types. "
+                    + "See https://github.com/khellang/Scrutor/issues/39 for more info"
+            );
         }
 
         if (ServiceCollection.Any(sd => sd.ServiceType == serviceDescriptor.ServiceType))
@@ -63,21 +67,26 @@ public abstract class MicrosoftCompositionRootBase : CompositionRoot
             ServiceCollection.Decorate(
                 serviceDescriptor.ServiceType,
                 serviceDescriptor.ImplementationType
-                ?? throw new ArgumentException("You must provide an implementationType when registering a decorator",
-                    nameof(serviceDescriptor)));
+                    ?? throw new ArgumentException(
+                        "You must provide an implementationType when registering a decorator",
+                        nameof(serviceDescriptor)
+                    )
+            );
         }
         else
         {
             _logger.LogWarning(
                 "Skipping registration of decorator {DecoratorTypeName} because the service type to decorate ({ServiceType}) is not registered",
                 serviceDescriptor.GetImplementationTypeDescription(),
-                serviceDescriptor.ServiceType.Name);
+                serviceDescriptor.ServiceType.Name
+            );
         }
     }
 
     public override void RegisterCollection(IEnumerable<ServiceDescriptor> serviceDescriptors)
     {
-        var serviceDescriptorArray = serviceDescriptors as ServiceDescriptor[] ?? serviceDescriptors.ToArray();
+        var serviceDescriptorArray =
+            serviceDescriptors as ServiceDescriptor[] ?? serviceDescriptors.ToArray();
 
         if (serviceDescriptorArray.Length == 0)
         {

@@ -23,11 +23,8 @@ public class MicrosoftCompositionRoot : MicrosoftCompositionRootBase
         {
             _logger.LogInformation("Building Microsoft ServiceProvider");
             return ServiceCollection.BuildServiceProvider(
-                new ServiceProviderOptions
-                {
-                    ValidateScopes = true,
-                    ValidateOnBuild = true
-                });
+                new ServiceProviderOptions { ValidateScopes = true, ValidateOnBuild = true }
+            );
         });
     }
 

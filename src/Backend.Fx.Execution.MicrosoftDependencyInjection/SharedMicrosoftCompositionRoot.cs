@@ -14,13 +14,14 @@ public class SharedMicrosoftCompositionRoot : MicrosoftCompositionRootBase
 {
     private IServiceProvider _serviceProvider;
 
-    public SharedMicrosoftCompositionRoot(IServiceCollection serviceCollection) : base(serviceCollection)
-    {
-    }
+    public SharedMicrosoftCompositionRoot(IServiceCollection serviceCollection)
+        : base(serviceCollection) { }
 
     public override IServiceProvider ServiceProvider =>
-        _serviceProvider ?? throw new InvalidOperationException(
-            "ServiceProvider not in use. Call UseServiceProvider(app.ServiceProvider) in your entry point");
+        _serviceProvider
+        ?? throw new InvalidOperationException(
+            "ServiceProvider not in use. Call UseServiceProvider(app.ServiceProvider) in your entry point"
+        );
 
     public override void Verify()
     {
